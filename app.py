@@ -107,14 +107,12 @@ def adapt_model(model:object, dim:int=1024) -> object:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', type=str, default="Salesforce/codet5p-770m")
-    parser.add_argument('--path_checkpoint1', type=str, default="checkpoint.bin") 
-    parser.add_argument('--path_checkpoint2', type=str, default="multilingual_standard.bin")
+    parser.add_argument('--path_checkpoint', type=str, default="checkpoint.bin") 
     args = parser.parse_args()
 
 
     model_name = args.model_name
-    checkpoint1 = args.path_checkpoint1
-    checkpoint2 = args.path_checkpoint2
+    checkpoint = args.path_checkpoint
 
     DEVICE = "cpu"
 
@@ -142,13 +140,13 @@ def main():
     
     selected = option_menu(
         menu_title="Choose your model",
-        options=["Multilingual_multiprovenance","Multilingual_standard" ],
+        options=["Multilingual_multiprovenance"],
         default_index=0,
         orientation="horizontal",
     )
 
     if selected=="Multilingual_standard":
-        model.load_state_dict(torch.load(checkpoint2,map_location='cpu'))
+        model.load_state_dict(torch.load(checkpoint,map_location='cpu'))
         model = model.eval()
         st.title("Human-AI stylometer - Multilingual_standard")
         text = st.text_area("insert your code here")
@@ -158,17 +156,7 @@ def main():
             out= model(torch.tensor(input.input_ids),torch.tensor(input.attention_mask))
             #st.json(out)
             st.write(out["my_class"]) 
-    else:
-        model.load_state_dict(torch.load(checkpoint1,map_location='cpu'))
-        model = model.eval()
-        st.title("Human-AI stylometer - Multilingual_multiprovenance")
-        text = st.text_area("insert your code here")
-        button = st.button("send")
-        if button or text:
-            input = tokenizer([text])
-            out= model(torch.tensor(input.input_ids),torch.tensor(input.attention_mask))
-            #st.json(out)
-            st.write(out["my_class"]) 
+
     
 
 
