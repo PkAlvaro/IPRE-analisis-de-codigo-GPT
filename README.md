@@ -1,10 +1,10 @@
 ---
-title: Human Ai
-emoji: 🐢
-colorFrom: yellow
-colorTo: yellow
+title: TestStyl
+emoji: 👀
+colorFrom: green
+colorTo: indigo
 sdk: streamlit
-sdk_version: 1.38.0
+sdk_version: 1.37.0
 app_file: app.py
 pinned: false
 license: mit
