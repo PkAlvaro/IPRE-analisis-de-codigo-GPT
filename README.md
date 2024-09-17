@@ -1,5 +1,5 @@
 ---
-title: TestStyl
+title: Human-Ai
 emoji: 👀
 colorFrom: green
 colorTo: indigo
