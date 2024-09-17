@@ -104,62 +104,55 @@ def adapt_model(model:object, dim:int=1024) -> object:
 
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--model_name', type=str, default="Salesforce/codet5p-770m")
-    parser.add_argument('--path_checkpoint', type=str, default="checkpoint.bin") 
-    args = parser.parse_args()
 
 
-    model_name = args.model_name
-    checkpoint = args.path_checkpoint
 
-    DEVICE = "cpu"
+model_name = "Salesforce/codet5p-770m"
+checkpoint = "checkpoint.bin"
+
+DEVICE = "cpu"
 
     
     
 
-    #load tokenizer
-    tokenizer = load_tokenizer(model_name)
-    print("tokenizer  loaded!")
+#load tokenizer
+tokenizer = load_tokenizer(model_name)
+print("tokenizer  loaded!")
 
 
  
 
 
         #loading model and tokenizer for functional translation
-    model = load_model(model_name)
+model = load_model(model_name)
 
         #adding classification head to the model
-    model = adapt_model(model, dim=model.shared.embedding_dim)
+model = adapt_model(model, dim=model.shared.embedding_dim)
 
 
 
 
 
     
-    selected = option_menu(
+selected = option_menu(
         menu_title="Choose your model",
         options=["Multilingual_multiprovenance"],
         default_index=0,
         orientation="horizontal",
     )
 
-    if selected=="Multilingual_standard":
-        model.load_state_dict(torch.load(checkpoint,map_location='cpu'))
-        model = model.eval()
-        st.title("Human-AI stylometer - Multilingual_standard")
-        text = st.text_area("insert your code here")
-        button = st.button("send")
-        if button or text:
-            input = tokenizer([text])
-            out= model(torch.tensor(input.input_ids),torch.tensor(input.attention_mask))
-            #st.json(out)
-            st.write(out["my_class"]) 
+if selected=="Multilingual_standard":
+    model.load_state_dict(torch.load(checkpoint,map_location='cpu'))
+    model = model.eval()
+    st.title("Human-AI stylometer - Multilingual_standard")
+    text = st.text_area("insert your code here")
+    button = st.button("send")
+    if button or text:
+        input = tokenizer([text])
+        out= model(torch.tensor(input.input_ids),torch.tensor(input.attention_mask))
+        #st.json(out)
+        st.write(out["my_class"]) 
 
     
 
 
-
-if __name__ == '__main__':
-    main()
