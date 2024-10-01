@@ -130,7 +130,7 @@ def main():
 
     model.load_state_dict(torch.load(checkpoint,map_location='cpu'))
     model = model.eval()
-    st.title("Human-AI stylometer - Multilingual_multiprovenance")
+    st.title("Human-AI stylometer - Multilingual")
     text = st.text_area("insert your code here")
     button = st.button("send")
     if button or text:
