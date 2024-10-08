@@ -132,7 +132,7 @@ def main():
     model = model.eval()
     st.title("Human-AI stylometer - Multilingual")
     
-    st.caption('Is This You, LLM? Recognizing AI-written Programs with Multilingual Code Stylometry')
+    st.caption('From the paper: Is This You, LLM? Recognizing AI-written Programs with Multilingual Code Stylometry')
     
     text = st.text_area("insert your code here")
     button = st.button("send")
