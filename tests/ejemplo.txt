@@ -1,0 +1,19 @@
+class Solution:
+    def findMaximizedCapital(self, k: int, w: int, profits: list[int], capital: list[int]) -> int:
+        n = len(profits)
+        projects = sorted(zip(capital, profits))
+        
+        max_heap = []
+        project_index = 0
+        
+        for _ in range(k):
+            while project_index < n and projects[project_index][0] <= w:
+                heapq.heappush(max_heap, -projects[project_index][1])
+                project_index += 1
+            
+            if not max_heap:
+                break
+            
+            w += -heapq.heappop(max_heap)
+            
+        return w
