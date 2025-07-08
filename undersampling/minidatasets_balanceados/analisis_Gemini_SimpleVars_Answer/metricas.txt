@@ -1,0 +1,8 @@
+Accuracy:  0.6921
+Precision (macro): 0.7024
+Recall (macro):    0.6921
+F1 (macro):        0.6881
+Matriz de confusión (filas=esperado, columnas=predicho):
+        Humano  IA
+Humano     132  32
+IA          69  95

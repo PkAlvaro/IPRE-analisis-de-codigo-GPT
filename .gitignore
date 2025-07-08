@@ -2,3 +2,4 @@
 checkpoint.bin
 generador/.env
 codet5p-770m-local/
+__pycache__/
